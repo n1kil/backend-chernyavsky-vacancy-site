@@ -1,25 +1,27 @@
-<!--
-  Это шаблон README проекта. После создания своего репозитория:
-  1. Переименовать репозиторий в backend-<фамилия>-<тема>, например backend-ivanova-library.
-  2. Заполнить разделы ниже под свою тему и удалить этот комментарий.
-  Задания лаб лежат в папке docs/, начинать с docs/README.md.
--->
 
 # Название проекта
 
-Тема №__: **...**. Одна фраза: что это и для кого.
+Тема №7: Сайт вакансий. Одна фраза: вакансии от работодателей соискателям.
 
 | | |
 | --- | --- |
-| Главная сущность | ... |
-| Связанная сущность (1:N) | ... |
-| Фишка | ... |
-| Стек | язык, фреймворк, база данных |
+| Главная сущность | Vacancy |
+| Связанная сущность (1:N) | Application |
+| Фишка | Нельзя откликнуться на закрытую вакансию или повторно с тем же email |
+| Стек | C#, ASP.NET Core (Minimal API) |
 
 ## Как запустить
 
 ```bash
-# команды по порядку: от git clone до работающего сервиса
+git clone https://github.com/n1kil/backend-chernyavsky-vacancy-site
+cd backend-vacancy-site
+
+cd VacancySite
+
+dotnet restore
+dotnet build
+
+dotnet run
 ```
 
 Сервис работает на `http://localhost:8000`. Запросы для демонстрации лежат в `requests.http`.
@@ -29,11 +31,11 @@
 | Метод | Путь | Что делает | Ответ |
 | --- | --- | --- | --- |
 | GET | `/health` | Проверка, что сервис жив | 200 `{"status":"ok"}` |
-| POST | `/api/items` | Создать | 201 и объект с `id`; 400 при ошибке |
-| GET | `/api/items` | Список | 200 |
-| GET | `/api/items/{id}` | Получить одну запись | 200; 404 |
-| PATCH | `/api/items/{id}` | Изменить | 200; 400; 404 |
-| DELETE | `/api/items/{id}` | Удалить | 204; 404 |
+| POST | `/api/vacancies` | Создать | 201 и объект с `id`; 400 при ошибке |
+| GET | `/api/vacancies` | Список | 200 |
+| GET | `/api/vacancies/{id}` | Получить одну запись | 200; 404 |
+| PATCH | `/api/vacancies/{id}` | Изменить | 200; 400; 404 |
+| DELETE | `/api/vacancies/{id}` | Удалить | 204; 404 |
 
 ## ER-диаграмма
 
@@ -41,14 +43,23 @@
 
 ```mermaid
 erDiagram
-    parents ||--o{ children : "имеет"
-    parents {
+    vacancies ||--o{ applications : "имеет отклики"
+    
+    vacancies {
         int id PK
-        varchar title
+        string position
+        string company
+        decimal salary
+        boolean isOpen
+        int countOfApplications
     }
-    children {
+    
+    applications {
         int id PK
-        int parent_id FK
+        int appliedVacancyId FK
+        string name
+        string email
+        string letter
     }
 ```
 
