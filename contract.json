@@ -1,10 +1,27 @@
 {
   "base_url": "http://localhost:8000",
-  "resource": "items",
+  "resource": "vacancies",
   "id_field": "id",
   "missing_id": "999999",
   "list_key": null,
-  "create": { "title": "Первая запись" },
-  "update": { "title": "Изменённая запись" },
-  "required_field": "title"
+  "create": { 
+    "position": "C# Разработчик", 
+    "company": "ИП Иванов И.И.", 
+    "salary": 100000, 
+    "isOpen": true 
+  },
+  "update": { 
+    "salary": 150000 
+  },
+  "required_field": "position",
+  "errors": [
+    { "body": { "position": "" }, "field": "position" },
+    { "body": { "company": "" }, "field": "company" },
+    { "body": { "salary": -1 }, "field": "salary" }
+  ],
+  "filter": { 
+    "param": "company", 
+    "value": "ИП Иванов И.И.", 
+    "other": "Яндекс" 
+  }
 }

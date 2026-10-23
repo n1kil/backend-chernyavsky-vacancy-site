@@ -19,7 +19,7 @@ namespace VacancySite
 
             var app = builder.Build();
 
-            app.MapGet("/health", () => Results.Ok(new { status = "OK" }));
+            app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
             app.MapGet("/api/vacancies", () =>
             {
