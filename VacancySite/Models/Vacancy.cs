@@ -6,22 +6,22 @@ namespace VacancySite.Models
     {
 
 
-        public int Id { get; private set; }
-        public string Position { get; private set; }
+        public int Id { get; set; }
+        public string Position { get; set; }
 
-        public string Company { get; private set; }
+        public string Company { get; set; }
 
-        public decimal Salary { get; private set; }
+        public decimal Salary { get; set; }
 
-        public bool IsOpen { get; private set; }
+        public bool IsOpen { get; set; }
 
-        public int CountOfApplications { get; private set; }
+        public int CountOfApplications { get; set; }
 
-        static public int NextId {  get; private set; }
+        private static int _nextId = 0;
 
         public Vacancy(string position, string company, decimal salary, bool isopen)
         {
-            Id = ++NextId;
+            Id = ++_nextId;
             Position = position;
             Company = company;
             Salary = salary;
@@ -32,15 +32,10 @@ namespace VacancySite.Models
         {
             if (position != null) Position = position;
             if (company != null) Company = company;
-            if (salary != null) Salary = salary.Value;
-            if (isOpen != null) IsOpen = isOpen.Value;
+            if (salary is decimal s) Salary = s;
+            if (isOpen is bool open) IsOpen = open;
         }
 
-        public void MakeClosed() => IsOpen = false;
-        public void MakeOpen() => IsOpen = true;
-
-
-       
 
     }
 }
