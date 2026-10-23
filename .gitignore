@@ -29,6 +29,7 @@ obj/
 !.vscode/extensions.json
 .DS_Store
 Thumbs.db
+.vs/
 
 # Базы
 *.db
