@@ -61,6 +61,7 @@ erDiagram
         string email
         string letter
     }
+    }
 ```
 
 ## Интерфейс
