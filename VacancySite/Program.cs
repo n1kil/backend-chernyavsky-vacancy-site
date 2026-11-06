@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using VacancySite.Data;
 using VacancySite.Models;
+using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
 namespace VacancySite
 {
@@ -16,6 +18,16 @@ namespace VacancySite
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            Env.Load();
+            var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new Exception("DATABASE_URL не найден в .env");
+            }
+
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
             var app = builder.Build();
 

@@ -13,10 +13,9 @@ namespace VacancySite.Models
 
         public int AppliedVacancyId { get; set; }
 
-        private static int _nextId = 0;
+        public Application() { }
         public Application(string name, string email, string letter, int appliedVacancyId)
         {
-            Id = ++_nextId;
             Name = name;
             Email = email;
             Letter = letter;

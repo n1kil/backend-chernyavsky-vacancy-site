@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VacancySite.Models
 {
@@ -17,15 +18,16 @@ namespace VacancySite.Models
 
         public int CountOfApplications { get; set; }
 
-        private static int _nextId = 0;
 
-        public Vacancy(string position, string company, decimal salary, bool isopen)
+        public List<Application> Applications { get; set; } = new();
+
+        public Vacancy() { }
+        public Vacancy(string position, string company, decimal salary, bool isOpen)
         {
-            Id = ++_nextId;
             Position = position;
             Company = company;
             Salary = salary;
-            IsOpen = isopen;
+            IsOpen = isOpen;
         }
 
         public void Update(string? position = null, string? company = null, decimal? salary = null, bool? isOpen = null)
